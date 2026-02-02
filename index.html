@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Control de Vencidos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+
+
+    <div class="container">
+        <div class="acciones-top">
+            <button class="primary" onclick="abrirResumen()">
+                Ver próximos retiros del mes
+            </button>
+        </div>
+
+        <h1>Control de Productos Vencidos</h1>
+
+        <form id="productForm" class="card">
+            <h2>Registrar producto</h2>
+            <div class="grid">
+                <input id="producto" placeholder="Producto" required>
+                <input id="codigo" placeholder="Código" required>
+                <input id="vencimiento" type="date" required>
+                <input id="unidades" type="number" placeholder="Unidades" required>
+            </div>
+            <button class="primary">Registrar</button>
+        </form>
+
+
+        <div class="card">
+            <div class="card filtros">
+                <input id="busqueda" placeholder="Buscar por producto, código, estado o fecha..."
+                    oninput="renderTabla()">
+            </div>
+            <div class="acciones-top">
+                <button class="primary" onclick="exportarExcel()">
+                    Exportar a Excel
+                </button>
+            </div>
+
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Producto</th>
+                        <th>Código</th>
+                        <th>Vencimiento</th>
+                        <th>Unidades</th>
+                        <th>Retiro previsto</th>
+                        <th>Retiro real</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaProductos"></tbody>
+            </table>
+            <div id="paginacion" class="paginacion"></div>
+
+        </div>
+    </div>
+
+    <!-- MODAL EDITAR -->
+    <div class="modal" id="modalEditar">
+        <div class="modal-box">
+            <h3>Editar producto</h3>
+
+            <input id="editProducto">
+            <input id="editCodigo">
+            <input id="editVencimiento" type="date">
+            <input id="editUnidades" type="number">
+
+            <select id="editEstado">
+                <option value="Vigente">Vigente</option>
+                <option value="Retirado">Retirado</option>
+            </select>
+
+            <div class="acciones">
+                <button class="primary" onclick="guardarEdicion()">Guardar</button>
+                <button onclick="cerrarEditar()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL RETIRO -->
+    <div class="modal" id="modalRetiro">
+        <div class="modal-box">
+            <h3>Confirmar retiro</h3>
+            <p>Fecha real de retiro:</p>
+            <strong id="fechaHoy"></strong>
+
+            <div class="acciones">
+                <button class="primary" onclick="confirmarRetiro()">Confirmar retiro</button>
+                <button onclick="cerrarRetiro()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL ELIMINAR -->
+    <div class="modal" id="modalEliminar">
+        <div class="modal-box danger">
+            <h3>Eliminar producto</h3>
+            <p>¿Seguro que deseas eliminar <strong id="productoEliminar"></strong>?</p>
+
+            <div class="acciones">
+                <button class="danger" onclick="confirmarEliminar()">Eliminar</button>
+                <button onclick="cerrarEliminar()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    <!-- MODAL RESUMEN -->
+    <div class="modal" id="modalResumen">
+        <div class="modal-box">
+            <h3>Próximos retiros (mes actual)</h3>
+
+            <ul id="listaRetiros" class="resumen-lista"></ul>
+
+            <div class="acciones">
+                <button onclick="cerrarResumen()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+
+   <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+<script src="vencidosMK.js"></script>
+
+    
+</body>
+
+</html>
