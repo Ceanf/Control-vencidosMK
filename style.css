@@ -251,3 +251,11 @@ th {
   opacity: 0.5;
   cursor: not-allowed;
 }
+.gif-fixed {
+  position: fixed;
+  bottom: 10px;
+  right: 50px;
+  width: 200px;
+  height: auto;
+  z-index: 1000;
+}
